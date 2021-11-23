@@ -33,7 +33,7 @@ Define environment variables for the project id, region and zone you want to use
 PROJECT=$(gcloud config get-value project)
 REGION=us-central1
 ZONE=${REGION}-b
-CLUSTER=gke-load-test
+CLUSTER=mlocust-app
 gcloud config set compute/region $REGION 
 gcloud config set compute/zone $ZONE
 ```
@@ -119,7 +119,7 @@ git clone <this-repository>
 3. Modify the Locust locustfile.py file to use your MongoDB connection string. This file is where you configure what the load test actually "does." When you run the load test, it will execute this file.
 
 ```
-vi gke-load-tester/docker-image/locust-tasks/locustfile.py
+vi mlocust-app/docker-image/locust-tasks/locustfile.py
 ```
 In vi, modify the line toward the top of the file to reflect your MongoDB connection string, with username and password (python modern connection string). The original like looks like this:
 
@@ -130,7 +130,7 @@ client = pymongo.MongoClient("mongodb+srv://<user>:<pwd>@demo.nndb3.mongodb.net/
 4. Build docker image and store it in your project's container registry
 
 ```
-cd gke-load-tester
+cd mlocust-app 
 gcloud builds submit --tag gcr.io/$PROJECT/locust-tasks:latest docker-image/.
 ```
 
